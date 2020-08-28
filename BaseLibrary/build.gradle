@@ -1,0 +1,199 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+
+android {
+
+    sourceSets {
+        main {
+            java.srcDirs += 'src/main/kotlin/'
+            jniLibs.srcDirs = ['native-libs']
+            jni.srcDirs = [] //disable automatic ndk-build
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_1_8.toString()
+    }
+
+    compileSdkVersion 29
+    buildToolsVersion "29.0.3"
+
+    defaultConfig {
+        minSdkVersion 21
+        targetSdkVersion 29
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles "consumer-rules.pro"
+
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    android {
+        buildFeatures {
+            dataBinding = true
+            // for view binding
+            viewBinding = true
+        }
+    }
+}
+
+dependencies {
+    def versions = [:]
+
+    versions.support = "26.1.0"
+    versions.anko = "0.10.1"
+    versions.arch = "1.0.0-rc1"
+    versions.kotlin = "1.2.0"
+    versions.android_gradle_plugin = '3.4.0'
+    versions.kotlin_gradle_plugin = "1.3.21"
+    versions.multidex_version = "2.0.1"
+
+    implementation fileTree(dir: "libs", include: ["*.jar", "*.aar"])
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    implementation 'androidx.core:core-ktx:1.3.1'
+    implementation 'androidx.appcompat:appcompat:1.2.0'
+    implementation 'junit:junit:4.13'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+
+    implementation 'com.ashokvarma.android:bottom-navigation-bar:2.1.0'
+////////////////////////////////////////////////////以下是UI依赖////////////////////////////////////////////////////
+    //recyclerview列表依赖
+    implementation "androidx.recyclerview:recyclerview:1.1.0"
+    //banner依赖
+    implementation "com.youth.banner:banner:2.0.12"
+    //
+    implementation "com.flyco.tablayout:FlycoTabLayout_Lib:2.1.2@aar"
+
+    implementation "com.afollestad.material-dialogs:core:3.3.0"
+
+    implementation "com.github.iwgang:countdownview:2.1.6"
+    //张鸿洋的流式布局依赖
+    implementation "com.zhy:flowlayout-lib:1.0.3"
+    //今日头条屏幕适配
+    implementation 'me.jessyan:autosize:1.2.1'
+
+    //Glide
+    implementation "com.github.bumptech.glide:glide:4.11.0"
+    implementation "jp.wasabeef:glide-transformations:4.0.0"
+    implementation "com.github.bumptech.glide:okhttp3-integration:4.8.0"
+    implementation "com.caverock:androidsvg:1.2.1"
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0'
+    //下拉刷新控件
+    implementation 'com.scwang.smartrefresh:SmartRefreshLayout:1.1.2'
+    //Androidx下的一些控件，如TabLayout等
+    implementation 'com.google.android.material:material:1.2.0'
+
+    //数据请求加载框
+    implementation 'com.dyhdyh.loadingbar2:loadingbar:2.0.1'
+
+//    implementation 'androidx.navigation:navigation-fragment-ktx:2.3.0'
+//    implementation 'androidx.navigation:navigation-ui-ktx:2.3.0'
+////////////////////////////////////////////////////以下是逻辑业务依赖////////////////////////////////////////////////////
+    //解决分包65536问题
+    implementation "androidx.multidex:multidex:$versions.multidex_version"
+
+    //OkHttp3网络库
+    implementation 'com.squareup.okhttp3:okhttp:4.8.0'
+    testImplementation("com.squareup.okhttp3:mockwebserver:4.8.0")
+    implementation 'com.squareup.okhttp3:logging-interceptor:4.8.0'
+    //Rx系列库
+    //rxjava2
+    implementation 'io.reactivex.rxjava2:rxjava:2.2.19'
+    implementation 'io.reactivex.rxjava2:rxandroid:2.1.1'
+    //retrofit2
+    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
+    implementation 'com.squareup.retrofit2:adapter-rxjava2:2.9.0'
+    implementation 'com.jakewharton.retrofit:retrofit2-kotlin-coroutines-adapter:0.9.2'
+
+    //Gson解析库
+    implementation 'com.google.code.gson:gson:2.8.6'
+    //kotlin的anko落泪依赖
+    implementation 'org.jetbrains.anko:anko:0.10.8'
+    //Mmkv缓存库
+    implementation 'com.tencent:mmkv:1.0.24'
+    implementation 'com.getkeepsafe.relinker:relinker:1.4.0'
+    //协程
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.7'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.7'
+    //okhttp的Kotlin版本
+    implementation 'com.stormkid:okhttpkt:1.0.9.2'
+
+    //👇 依赖协程核心库
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.7"
+    //👇 依赖当前平台所对应的平台库
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.7"
+
+    //权限处理 https://github.com/guolindev/PermissionX
+    implementation 'com.permissionx.guolindev:permissionx:1.3.0'
+    implementation 'com.bennyhuo.kotlin:coroutines-android-mainscope:1.1-rc2'
+
+    implementation "com.daimajia.easing:library:2.0@aar"
+    implementation "com.daimajia.androidanimations:library:2.3@aar"
+    implementation "me.grantland:autofittextview:0.2.1"
+
+////////////////////////////////////////////////JetPack全家桶的部分模块依赖////////////////////////////////////////////////
+    //生命周期管理lifecycle依赖
+    implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.3.0-alpha06'
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.0-alpha06'
+    def lifecycle_version = "2.2.0"
+    implementation "androidx.lifecycle:lifecycle-extensions:$lifecycle_version"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"
+    // Some UI AndroidX libraries use this lightweight import for Lifecycle
+    implementation "androidx.lifecycle:lifecycle-runtime:$lifecycle_version"
+    implementation "androidx.lifecycle:lifecycle-common-java8:$lifecycle_version"
+
+    //ViewModel的依赖
+    implementation "androidx.lifecycle:lifecycle-extensions:2.2.0"
+
+    //LiveData 依赖
+    def live_dataversion = "1.1.1"
+    implementation "android.arch.lifecycle:extensions:$live_dataversion"
+    implementation "android.arch.lifecycle:livedata:$live_dataversion"
+
+    //Room数据库依赖
+    def room_version = "2.2.5"
+    implementation "androidx.room:room-runtime:$room_version"
+    // For Kotlin use kapt instead of annotationProcessor
+//    annotationProcessor "androidx.room:room-compiler:$room_version"
+    annotationProcessor "androidx.room:room-compiler:$room_version"
+    // optional - Kotlin Extensions and Coroutines support for Room
+    implementation "androidx.room:room-ktx:$room_version"
+    // optional - RxJava support for Room
+    implementation "androidx.room:room-rxjava2:$room_version"
+    // optional - Guava support for Room, including Optional and ListenableFuture
+    implementation "androidx.room:room-guava:$room_version"
+    // Test helpers
+    testImplementation "androidx.room:room-testing:$room_version"
+
+//    support
+//    implementation "com.android.support:design:$versions.support"
+//    implementation "com.android.support:recyclerview-v7:$versions.support"
+//    implementation "com.android.support:design:$versions.support"
+////  implementation "com.android.support:widget-v7:$versions.support"
+//    implementation "com.android.support:appcompat-v7:$versions.support"
+//    implementation "com.android.support:cardview-v7:$versions.support"
+//    implementation "com.android.support:support-v4:$versions.support"
+//    implementation "com.flyco.tablayout:FlycoTabLayout_Lib:2.1.2@aar"
+//    implementation("io.coil-kt:coil:0.9.5")
+    //// Jetpack全家桶，用ROM代替
+//    implementation "org.greenrobot:eventbus:3.1.1"
+    ////就单一的用Gson解析。数据量不大，并不影响性能
+//    implementation "com.alibaba:fastjson:1.2.39"
+
+}

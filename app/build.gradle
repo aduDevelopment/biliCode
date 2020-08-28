@@ -1,0 +1,68 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+
+android {
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    compileSdkVersion 29
+    buildToolsVersion "29.0.3"
+
+    defaultConfig {
+//        applicationId "com.waterDrop.cloudpay"
+        minSdkVersion 21
+        targetSdkVersion 29
+        versionCode 1
+        versionName "1.0"
+        multiDexEnabled true
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+}
+
+dependencies {
+
+    def versions = [:]
+    versions.support = "26.1.0"
+    versions.anko = "0.10.1"
+    versions.arch = "1.0.0-rc1"
+    versions.kotlin = "1.2.0"
+    versions.android_gradle_plugin = '3.4.0'
+    versions.kotlin_gradle_plugin = "1.3.21"
+
+    implementation fileTree(dir: "libs", include: ["*.jar"])
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    implementation 'androidx.core:core-ktx:1.3.1'
+    implementation 'androidx.appcompat:appcompat:1.2.0'
+    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+    implementation 'junit:junit:4.13'
+    implementation 'androidx.test.ext:junit:1.1.1'
+    implementation 'androidx.test.espresso:espresso-core:3.2.0'
+    implementation 'org.jetbrains.anko:anko:0.10.8'
+
+    implementation 'com.bennyhuo.kotlin:coroutines-android-mainscope:1.1-rc2'
+    implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.3.0-alpha06'
+    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.3.0-alpha06'
+
+    implementation "com.google.code.gson:gson:2.8.6"
+
+    //今日头条屏幕适配
+    implementation 'me.jessyan:autosize:1.2.1'
+
+    implementation project(':BaseLibrary')
+    if(isUserModule.toBoolean()){
+        implementation project(':UserCenter')
+    }
+    if (isGoodsModule.toBoolean()){
+        implementation project(':GoodsCenter')
+    }
+}
