@@ -1,2 +1,1 @@
-# biliCode
-项目用于简单登陆,验证以及以后的扩展
+mobile-framework
