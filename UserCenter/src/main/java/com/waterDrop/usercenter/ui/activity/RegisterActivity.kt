@@ -43,7 +43,7 @@ class RegisterActivity : BaseMvvmActivity<RegisterViewModel>(), RegisterView, Co
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_register)
+      //  setContentView(R.layout.activity_register)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_register)
         mViewModel.mView = this
         onClick()

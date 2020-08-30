@@ -13,6 +13,7 @@ import com.waterdrop.goodscenter.R
 import kotlinx.android.synthetic.main.activity_goods_list.*
 
 class GoodsListActivity : AppCompatActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_goods_list)
@@ -31,5 +32,9 @@ class GoodsListActivity : AppCompatActivity() {
 
         recycler_view.layoutManager = LinearLayoutManager(this)
         recycler_view.adapter = GoodsAdapter(arr)
+
+
     }
+
+
 }
